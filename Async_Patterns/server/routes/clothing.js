@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const fsPromises = require('fs').promises;
 const datafile = 'server/data/clothing.json';
 const router = express.Router();
 
@@ -20,18 +21,10 @@ router.route('/')
 
 function getClothingData(){
 
-  return new Promise((resolve,reject)=>{
-    fs.readFile(datafile,'utf8',(err,data)=>{
-      if(err){
-        reject(err);
-      }
-      else
-      {
-        let clothingData = JSON.parse(data);
-        resolve(clothingData);
-      }
-    });
-  })
+  let clothingPromise = fsPromises.readFile(datafile,'utf8')
+                                  .then(data=>JSON.parse(data));
+  console.log(clothingPromise);
+  return clothingPromise;
   
 }
 
