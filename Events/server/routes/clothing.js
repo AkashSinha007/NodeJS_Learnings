@@ -3,9 +3,9 @@ const fs = require('fs');
 const fsPromises = require('fs').promises;
 const datafile = 'server/data/clothing.json';
 const router = express.Router();
-const DataMonitor = require('../DataMonitor');
 
-let dataMonitor = new DataMonitor();
+module.exports = function(monitor){
+  let dataMonitor= monitor ;
 
 dataMonitor.on('dataAdded',(item)=>{
   console.log(`New data was added: ${item}`);
@@ -76,4 +76,5 @@ function saveClothingData(data) {
   return fsPromises.writeFile(datafile, JSON.stringify(data, null, 4));
 }
 
-module.exports = router;
+  return router;
+}
