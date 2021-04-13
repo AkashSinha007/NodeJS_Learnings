@@ -6,7 +6,7 @@ const router = express.Router();
 /* GET all clothing */
 router.route('/')
   .get(function(req, res) {
-
+    let clothingData = getClothingData();
     console.log('Returning clothing data');
     res.send(clothingData);
     console.log('Doing more work');
