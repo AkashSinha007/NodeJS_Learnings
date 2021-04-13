@@ -19,13 +19,19 @@ router.route('/')
     console.log('Doing more work');
   });
 
-function getClothingData(){
+async function getClothingData(){
 
-  let clothingPromise = fsPromises.readFile(datafile,'utf8')
-                                  .then(data=>JSON.parse(data));
-  console.log(clothingPromise);
-  return clothingPromise;
+  let rawData = await fsPromises.readFile(datafile,'utf8')
+  let clothingData = JSON.parse(rawData);
+  console.log(clothingData);
+  return clothingData;
   
 }
 
 module.exports = router;
+
+
+  /*Note:
+  function declared as async automatically wraps returned data in a promise
+  and returns the promise to the caller
+  Because it returns a promise, we can also 'await' that in calling code. */
