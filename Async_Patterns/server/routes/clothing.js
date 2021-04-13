@@ -6,21 +6,28 @@ const router = express.Router();
 /* GET all clothing */
 router.route('/')
   .get(function(req, res) {
-    let clothingData = getClothingData();
-    console.log('Returning clothing data');
-    res.send(clothingData);
+    getClothingData((err,data)=>{
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log('Returning clothing data');
+        res.send(data);
+      }
+    });
+
     console.log('Doing more work');
   });
 
-function getClothingData(){
+function getClothingData(callback){
   fs.readFile(datafile,'utf8',(err,data)=>{
     if(err){
-      console.log(err);
+      callback(err,null);
     }
     else
     {
       let clothingData = JSON.parse(data);
-      return clothingData;
+      callback(null,clothingData);
     }
   });
 }
