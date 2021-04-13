@@ -43,6 +43,8 @@ router.route('/')
 
       dataMonitor.emit('dataAdded',newClothingItem.itemName);
 
+      console.log('Returning new item to browser');
+
       res.status(201).send(newClothingItem);
     }
     catch (error) {
